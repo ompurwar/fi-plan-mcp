@@ -30,7 +30,19 @@ available with an API token or OAuth. Create a token at
 
 ## Client configuration
 
-Claude Desktop / Cursor / any MCP client:
+The exact format differs per client. Use the one for yours.
+
+**Claude Code** (CLI — recommended):
+
+```bash
+claude mcp add --transport http fi-plan https://www.fi-plan.in/mcp
+```
+
+**Claude Desktop / Claude apps** — add as a custom connector:
+
+> Settings → Connectors → Add custom connector → URL `https://www.fi-plan.in/mcp`
+
+**Cursor** (`.cursor/mcp.json`):
 
 ```json
 {
@@ -42,12 +54,54 @@ Claude Desktop / Cursor / any MCP client:
 }
 ```
 
-Authenticated (optional):
+**VS Code** (`.vscode/mcp.json`) — note the `servers` key and the required `type`:
+
+```json
+{
+  "servers": {
+    "fi-plan": {
+      "type": "http",
+      "url": "https://www.fi-plan.in/mcp"
+    }
+  }
+}
+```
+
+**Any client using the `.mcp.json` / `mcpServers` shape** (e.g. Claude Code project
+scope) — a `url` entry **must** include `"type": "http"`, or the client treats it
+as a stdio server and skips it:
 
 ```json
 {
   "mcpServers": {
     "fi-plan": {
+      "type": "http",
+      "url": "https://www.fi-plan.in/mcp"
+    }
+  }
+}
+```
+
+### Authenticated (optional)
+
+For account tools, pass a token in a header. Works only in clients that support
+custom headers (Cursor, VS Code, Claude Code); the Claude Desktop/apps connector
+UI does not take custom headers.
+
+Claude Code:
+
+```bash
+claude mcp add --transport http fi-plan https://www.fi-plan.in/mcp \
+  --header "Authorization: Bearer fp_your_token_here"
+```
+
+Cursor / VS Code / `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "fi-plan": {
+      "type": "http",
       "url": "https://www.fi-plan.in/mcp",
       "headers": { "Authorization": "Bearer fp_your_token_here" }
     }
