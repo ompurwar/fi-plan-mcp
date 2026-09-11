@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.ompurwar/fi-plan",
   "title": "Fi-Plan",
-  "description": "Financial simulator for Indian salaries: loan amortization and refinance, asset projections, and 50-year FIRE plans from a real month-by-month engine. Anonymous, no signup for the public calculators.",
+  "description": "Financial simulator for Indian salaries: loans, taxes, SIPs and 50-year FIRE plans.",
   "version": "1.0.0",
   "repository": {
     "url": "https://github.com/ompurwar/fi-plan-mcp",
